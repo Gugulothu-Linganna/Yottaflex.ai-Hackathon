@@ -1,4 +1,4 @@
-# Parquet Schema Drift Pipeline
+# Parquet Schema Pipeline
 
 A local, batch data pipeline. It reads a series of Parquet files whose schema changes over time and does four things:
 
