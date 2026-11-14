@@ -1,0 +1,89 @@
+{
+  "orders_batch_001_baseline.parquet": {
+    "drift_kinds": [],
+    "outcome": "LOADED",
+    "rejects_by_reason": {
+      "DUPLICATE_IN_BATCH": 4,
+      "INVALID_AMOUNT": 4,
+      "INVALID_STATUS": 4,
+      "MISSING_REQUIRED_VALUE": 4,
+      "UNKNOWN_CUSTOMER": 4,
+      "UPDATED_BEFORE_CREATED": 4
+    },
+    "rows_in": 204,
+    "rows_inserted": 180,
+    "rows_rejected": 24,
+    "rows_stale": 0,
+    "rows_unchanged": 0,
+    "rows_updated": 0
+  },
+  "orders_batch_002_compatible_add_column.parquet": {
+    "drift_kinds": [
+      "ADD_COLUMN",
+      "WIDEN_INT_TO_FLOAT"
+    ],
+    "outcome": "LOADED",
+    "rejects_by_reason": {
+      "MISSING_REQUIRED_VALUE": 1,
+      "UNKNOWN_CUSTOMER": 2
+    },
+    "rows_in": 75,
+    "rows_inserted": 40,
+    "rows_rejected": 3,
+    "rows_stale": 8,
+    "rows_unchanged": 4,
+    "rows_updated": 20
+  },
+  "orders_batch_002b_replay_of_002.parquet": {
+    "outcome": "SKIPPED"
+  },
+  "orders_batch_003_missing_optional.parquet": {
+    "drift_kinds": [
+      "MISSING_OPTIONAL_COLUMN"
+    ],
+    "outcome": "LOADED",
+    "rejects_by_reason": {
+      "INVALID_AMOUNT": 1
+    },
+    "rows_in": 20,
+    "rows_inserted": 19,
+    "rows_rejected": 1,
+    "rows_stale": 0,
+    "rows_unchanged": 0,
+    "rows_updated": 0
+  },
+  "orders_batch_004_breaking_rename.parquet": {
+    "drift_kinds": [
+      "MISSING_REQUIRED_COLUMN",
+      "ADD_COLUMN"
+    ],
+    "outcome": "QUARANTINED"
+  },
+  "orders_batch_005_breaking_type.parquet": {
+    "drift_kinds": [
+      "TYPE_MISMATCH"
+    ],
+    "outcome": "QUARANTINED"
+  },
+  "orders_batch_006_empty.parquet": {
+    "drift_kinds": [
+      "MISSING_OPTIONAL_COLUMN"
+    ],
+    "outcome": "LOADED",
+    "rows_in": 0,
+    "rows_inserted": 0,
+    "rows_rejected": 0
+  },
+  "orders_batch_007_malformed.parquet": {
+    "drift_kinds": [
+      "UNREADABLE_FILE"
+    ],
+    "outcome": "QUARANTINED"
+  },
+  "orders_batch_008_breaking_name.parquet": {
+    "drift_kinds": [
+      "INVALID_COLUMN_NAME"
+    ],
+    "outcome": "QUARANTINED"
+  }
+}
