@@ -1,0 +1,22 @@
+2026-11-14 09:24:37,117 INFO [sample-run-0001] run started
+2026-11-14 09:24:37,152 INFO [sample-run-0001] LOADED orders_batch_001_baseline.parquet in=204 ins=180 upd=0 unch=0 stale=0 rej=24
+2026-11-14 09:24:37,177 INFO [sample-run-0001] LOADED orders_batch_002_compatible_add_column.parquet in=75 ins=40 upd=20 unch=4 stale=8 rej=3
+2026-11-14 09:24:37,180 INFO [sample-run-0001] SKIPPED orders_batch_002b_replay_of_002.parquet: already loaded (same content hash)
+2026-11-14 09:24:37,214 INFO [sample-run-0001] LOADED orders_batch_003_missing_optional.parquet in=20 ins=19 upd=0 unch=0 stale=0 rej=1
+2026-11-14 09:24:37,218 WARNING [sample-run-0001] QUARANTINED orders_batch_004_breaking_rename.parquet: MISSING_REQUIRED_COLUMN(customer_id)
+2026-11-14 09:24:37,221 WARNING [sample-run-0001] QUARANTINED orders_batch_005_breaking_type.parquet: TYPE_MISMATCH(amount)
+2026-11-14 09:24:37,233 INFO [sample-run-0001] LOADED orders_batch_006_empty.parquet in=0 ins=0 upd=0 unch=0 stale=0 rej=0
+2026-11-14 09:24:37,235 WARNING [sample-run-0001] QUARANTINED orders_batch_007_malformed.parquet: UNREADABLE_FILE(*)
+2026-11-14 09:24:37,238 WARNING [sample-run-0001] QUARANTINED orders_batch_008_breaking_name.parquet: INVALID_COLUMN_NAME(Discount%)
+2026-11-14 09:24:37,240 INFO [sample-run-0001] run finished status=SUCCESS_WITH_QUARANTINE totals={'rows_in': 299, 'rows_inserted': 239, 'rows_updated': 20, 'rows_unchanged': 4, 'rows_stale': 8, 'rows_rejected': 28, 'batches_seen': 9, 'batches_loaded': 4, 'batches_quarantined': 4, 'batches_skipped': 1, 'batches_failed': 0}
+2026-11-14 09:24:37,242 INFO [sample-run-0002] run started
+2026-11-14 09:24:37,247 INFO [sample-run-0002] SKIPPED orders_batch_001_baseline.parquet: already loaded (same content hash)
+2026-11-14 09:24:37,250 INFO [sample-run-0002] SKIPPED orders_batch_002_compatible_add_column.parquet: already loaded (same content hash)
+2026-11-14 09:24:37,254 INFO [sample-run-0002] SKIPPED orders_batch_002b_replay_of_002.parquet: already loaded (same content hash)
+2026-11-14 09:24:37,257 INFO [sample-run-0002] SKIPPED orders_batch_003_missing_optional.parquet: already loaded (same content hash)
+2026-11-14 09:24:37,259 INFO [sample-run-0002] SKIPPED orders_batch_004_breaking_rename.parquet: already quarantined (same content hash)
+2026-11-14 09:24:37,262 INFO [sample-run-0002] SKIPPED orders_batch_005_breaking_type.parquet: already quarantined (same content hash)
+2026-11-14 09:24:37,264 INFO [sample-run-0002] SKIPPED orders_batch_006_empty.parquet: already loaded (same content hash)
+2026-11-14 09:24:37,266 INFO [sample-run-0002] SKIPPED orders_batch_007_malformed.parquet: already quarantined (same content hash)
+2026-11-14 09:24:37,268 INFO [sample-run-0002] SKIPPED orders_batch_008_breaking_name.parquet: already quarantined (same content hash)
+2026-11-14 09:24:37,270 INFO [sample-run-0002] run finished status=SUCCESS totals={'rows_in': 0, 'rows_inserted': 0, 'rows_updated': 0, 'rows_unchanged': 0, 'rows_stale': 0, 'rows_rejected': 0, 'batches_seen': 9, 'batches_loaded': 0, 'batches_quarantined': 0, 'batches_skipped': 9, 'batches_failed': 0}

@@ -1,0 +1,69 @@
+> -- 1. Per-batch outcome and row accounting (every input row lands in exactly one bucket)
+source_file | outcome | rows_in | rows_inserted | rows_updated | rows_unchanged | rows_stale | rows_rejected | note
+orders_batch_001_baseline.parquet | LOADED | 204 | 180 | 0 | 0 | 0 | 24 | None
+orders_batch_002_compatible_add_column.parquet | LOADED | 75 | 40 | 20 | 4 | 8 | 3 | None
+orders_batch_002b_replay_of_002.parquet | SKIPPED | 0 | 0 | 0 | 0 | 0 | 0 | already loaded (same content hash)
+orders_batch_003_missing_optional.parquet | LOADED | 20 | 19 | 0 | 0 | 0 | 1 | None
+orders_batch_004_breaking_rename.parquet | QUARANTINED | 0 | 0 | 0 | 0 | 0 | 0 | MISSING_REQUIRED_COLUMN(customer_id)
+orders_batch_005_breaking_type.parquet | QUARANTINED | 0 | 0 | 0 | 0 | 0 | 0 | TYPE_MISMATCH(amount)
+orders_batch_006_empty.parquet | LOADED | 0 | 0 | 0 | 0 | 0 | 0 | empty batch
+orders_batch_007_malformed.parquet | QUARANTINED | 0 | 0 | 0 | 0 | 0 | 0 | UNREADABLE_FILE(*)
+orders_batch_008_breaking_name.parquet | QUARANTINED | 0 | 0 | 0 | 0 | 0 | 0 | INVALID_COLUMN_NAME(Discount%)
+
+> -- 2. Schema drift history (what changed, when, severity, and which batch)
+source_file | severity | kind | column_name | detail
+orders_batch_002_compatible_add_column.parquet | COMPATIBLE | ADD_COLUMN | coupon_code | new nullable column (string)
+orders_batch_002_compatible_add_column.parquet | COMPATIBLE | WIDEN_INT_TO_FLOAT | amount | int32 -> float
+orders_batch_003_missing_optional.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | currency | 'currency' absent; will be NULL
+orders_batch_003_missing_optional.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | coupon_code | 'coupon_code' absent; will be NULL
+orders_batch_004_breaking_rename.parquet | BREAKING | MISSING_REQUIRED_COLUMN | customer_id | required column 'customer_id' absent
+orders_batch_004_breaking_rename.parquet | COMPATIBLE | ADD_COLUMN | cust_id | new nullable column (string)
+orders_batch_004_breaking_rename.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | coupon_code | 'coupon_code' absent; will be NULL
+orders_batch_005_breaking_type.parquet | BREAKING | TYPE_MISMATCH | amount | expected float, got string
+orders_batch_005_breaking_type.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | coupon_code | 'coupon_code' absent; will be NULL
+orders_batch_006_empty.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | currency | 'currency' absent; will be NULL
+orders_batch_006_empty.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | coupon_code | 'coupon_code' absent; will be NULL
+orders_batch_007_malformed.parquet | BREAKING | UNREADABLE_FILE | * | not a Parquet file (bad magic bytes)
+orders_batch_008_breaking_name.parquet | BREAKING | INVALID_COLUMN_NAME | Discount% | 'Discount%' is not snake_case
+orders_batch_008_breaking_name.parquet | COMPATIBLE | MISSING_OPTIONAL_COLUMN | coupon_code | 'coupon_code' absent; will be NULL
+
+> -- 3. Rejects by reason, traceable to file + row
+reason_code | n
+UNKNOWN_CUSTOMER | 6
+MISSING_REQUIRED_VALUE | 5
+INVALID_AMOUNT | 5
+UPDATED_BEFORE_CREATED | 4
+INVALID_STATUS | 4
+DUPLICATE_IN_BATCH | 4
+
+
+source_file | source_row_number | order_id | reason_code | reason_detail
+orders_batch_001_baseline.parquet | 18 | O00000019 | INVALID_STATUS | status not in allowed set
+orders_batch_001_baseline.parquet | 33 | O00000034 | INVALID_STATUS | status not in allowed set
+orders_batch_001_baseline.parquet | 60 | O00000061 | INVALID_AMOUNT | amount must be finite and >= 0
+orders_batch_001_baseline.parquet | 76 | O00000077 | INVALID_STATUS | status not in allowed set
+orders_batch_001_baseline.parquet | 78 | O00000079 | DUPLICATE_IN_BATCH | superseded by row 203
+
+> -- 4. Evolved target schema
+column_name | logical_type | origin | has_run_id
+order_id | string | contract | 0
+customer_id | string | contract | 0
+order_ts | timestamp | contract | 0
+amount | float | contract | 0
+status | string | contract | 0
+updated_at | timestamp | contract | 0
+currency | string | contract | 0
+coupon_code | string | evolved | 1
+
+> -- 5. Revenue by status (current state only) and order-version history for one updated order
+status | orders | revenue
+cancelled | 45 | 7584.55
+shipped | 64 | 3738.68
+refunded | 56 | 2729.81
+paid | 39 | 2187.63
+created | 35 | 1432.1
+
+
+order_id | updated_at | status | amount | source_file
+O00000008 | 2026-01-15T03:07:30.000000Z | created | 72.41 | orders_batch_001_baseline.parquet
+O00000008 | 2026-01-16T03:07:30.000000Z | shipped | 80.0 | orders_batch_002_compatible_add_column.parquet

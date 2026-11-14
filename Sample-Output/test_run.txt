@@ -1,0 +1,50 @@
+test_bad_new_column_names_are_breaking (test_drift.DriftTests.test_bad_new_column_names_are_breaking) ... ok
+test_column_reorder_is_not_drift (test_drift.DriftTests.test_column_reorder_is_not_drift) ... ok
+test_float_for_int_target_is_narrowing (test_drift.DriftTests.test_float_for_int_target_is_narrowing) ... ok
+test_identical_schema_no_findings (test_drift.DriftTests.test_identical_schema_no_findings) ... ok
+test_int_to_float_widening_is_compatible (test_drift.DriftTests.test_int_to_float_widening_is_compatible) ... ok
+test_missing_optional_is_compatible (test_drift.DriftTests.test_missing_optional_is_compatible) ... ok
+test_missing_required_is_breaking (test_drift.DriftTests.test_missing_required_is_breaking) ... ok
+test_new_column_is_compatible_add (test_drift.DriftTests.test_new_column_is_compatible_add) ... ok
+test_physical_width_changes_are_compatible (test_drift.DriftTests.test_physical_width_changes_are_compatible) ... ok
+test_rename_is_breaking (test_drift.DriftTests.test_rename_is_breaking) ... ok
+test_string_for_numeric_is_breaking (test_drift.DriftTests.test_string_for_numeric_is_breaking) ... ok
+test_string_timestamp_is_breaking (test_drift.DriftTests.test_string_timestamp_is_breaking) ... ok
+test_unsupported_new_type_is_breaking (test_drift.DriftTests.test_unsupported_new_type_is_breaking) ... ok
+test_end_to_end_on_real_parquet_files (test_parquet_roundtrip.ParquetRoundTrip.test_end_to_end_on_real_parquet_files) ... skipped 'pyarrow not installed'
+test_outcomes_match_expected_labels (test_pipeline.AcceptanceTests.test_outcomes_match_expected_labels) ... ok
+test_totals_reconcile_with_database (test_pipeline.AcceptanceTests.test_totals_reconcile_with_database) ... ok
+test_updates_applied_and_stale_ignored (test_pipeline.AcceptanceTests.test_updates_applied_and_stale_ignored) ... ok
+test_load_order_does_not_change_final_state (test_pipeline.IdempotencyTests.test_load_order_does_not_change_final_state) ... ok
+test_reprocess_quarantined_flag (test_pipeline.IdempotencyTests.test_reprocess_quarantined_flag) ... ok
+test_rerun_same_input_changes_nothing (test_pipeline.IdempotencyTests.test_rerun_same_input_changes_nothing) ... ok
+test_same_rows_in_differently_encoded_file_creates_no_duplicates (test_pipeline.IdempotencyTests.test_same_rows_in_differently_encoded_file_creates_no_duplicates) ... ok
+test_missing_reference_file_fails_run_clearly (test_pipeline.RecoveryTests.test_missing_reference_file_fails_run_clearly) ... ok
+test_partial_failure_rolls_back_and_retry_succeeds (test_pipeline.RecoveryTests.test_partial_failure_rolls_back_and_retry_succeeds) ... ok
+test_added_column_is_evolved_into_target (test_pipeline.SchemaEvolutionTests.test_added_column_is_evolved_into_target) ... ok
+test_breaking_batches_quarantined_with_findings_and_not_loaded (test_pipeline.SchemaEvolutionTests.test_breaking_batches_quarantined_with_findings_and_not_loaded) ... ok
+test_empty_batch_loads_zero_rows (test_pipeline.SchemaEvolutionTests.test_empty_batch_loads_zero_rows) ... ok
+test_empty_input_directory (test_pipeline.SchemaEvolutionTests.test_empty_input_directory) ... ok
+test_deterministic_for_same_seed (test_reconcile_generator.GeneratorTests.test_deterministic_for_same_seed) ... ok
+test_different_seed_differs (test_reconcile_generator.GeneratorTests.test_different_seed_differs) ... ok
+test_labels_are_separate_and_aligned (test_reconcile_generator.GeneratorTests.test_labels_are_separate_and_aligned) ... ok
+test_scales_and_validates_size (test_reconcile_generator.GeneratorTests.test_scales_and_validates_size) ... ok
+test_all_checks_pass_after_scenario_run (test_reconcile_generator.ReconcileTests.test_all_checks_pass_after_scenario_run) ... ok
+test_detects_tampering (test_reconcile_generator.ReconcileTests.test_detects_tampering) ... ok
+test_boundaries_are_valid (test_validate.ValidateTests.test_boundaries_are_valid) ... ok
+test_duplicate_tie_later_row_wins (test_validate.ValidateTests.test_duplicate_tie_later_row_wins) ... ok
+test_duplicates_newest_wins_and_traceable (test_validate.ValidateTests.test_duplicates_newest_wins_and_traceable) ... ok
+test_empty_input (test_validate.ValidateTests.test_empty_input) ... ok
+test_happy_path_and_derived_fields (test_validate.ValidateTests.test_happy_path_and_derived_fields) ... ok
+test_invalid_reference_key (test_validate.ValidateTests.test_invalid_reference_key) ... ok
+test_malformed_values (test_validate.ValidateTests.test_malformed_values) ... ok
+test_normalisation_is_deterministic (test_validate.ValidateTests.test_normalisation_is_deterministic) ... ok
+test_null_and_blank_required_values (test_validate.ValidateTests.test_null_and_blank_required_values) ... ok
+test_reject_keeps_source_record (test_validate.ValidateTests.test_reject_keeps_source_record) ... ok
+test_rows_conserved (test_validate.ValidateTests.test_rows_conserved) ... ok
+test_updated_before_created (test_validate.ValidateTests.test_updated_before_created) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 2.981s
+
+OK (skipped=1)

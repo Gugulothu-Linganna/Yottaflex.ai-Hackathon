@@ -1,0 +1,264 @@
+{
+  "run_id": "sample-run-0001",
+  "status": "SUCCESS_WITH_QUARANTINE",
+  "started_at": "2026-11-14T09:24:37.116638Z",
+  "finished_at": "2026-11-14T09:24:37.238997Z",
+  "error": null,
+  "totals": {
+    "rows_in": 299,
+    "rows_inserted": 239,
+    "rows_updated": 20,
+    "rows_unchanged": 4,
+    "rows_stale": 8,
+    "rows_rejected": 28,
+    "batches_seen": 9,
+    "batches_loaded": 4,
+    "batches_quarantined": 4,
+    "batches_skipped": 1,
+    "batches_failed": 0
+  },
+  "batches": [
+    {
+      "source_file": "orders_batch_001_baseline.parquet",
+      "outcome": "LOADED",
+      "batch_sha256": "1697b753586c3eb6fd477a051c46e00e231f7db204b720626757a6197d3ebd5b",
+      "note": null,
+      "findings": [],
+      "rows_inserted": 180,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 24,
+      "rows_in": 204,
+      "timings_s": {
+        "read": 0.0042,
+        "validate": 0.0191,
+        "load": 0.0093
+      }
+    },
+    {
+      "source_file": "orders_batch_002_compatible_add_column.parquet",
+      "outcome": "LOADED",
+      "batch_sha256": "8cf0357ed439a62c0d204fad88a64f642e85c7206dc8b9694732b9ac8d012a9b",
+      "note": null,
+      "findings": [
+        {
+          "kind": "WIDEN_INT_TO_FLOAT",
+          "column": "amount",
+          "severity": "COMPATIBLE",
+          "detail": "int32 -> float",
+          "logical_type": null
+        },
+        {
+          "kind": "ADD_COLUMN",
+          "column": "coupon_code",
+          "severity": "COMPATIBLE",
+          "detail": "new nullable column (string)",
+          "logical_type": "string"
+        }
+      ],
+      "rows_inserted": 40,
+      "rows_updated": 20,
+      "rows_unchanged": 4,
+      "rows_stale": 8,
+      "rows_rejected": 3,
+      "rows_in": 75,
+      "timings_s": {
+        "read": 0.0021,
+        "validate": 0.0152,
+        "load": 0.0081
+      }
+    },
+    {
+      "source_file": "orders_batch_002b_replay_of_002.parquet",
+      "outcome": "SKIPPED",
+      "batch_sha256": "8cf0357ed439a62c0d204fad88a64f642e85c7206dc8b9694732b9ac8d012a9b",
+      "note": "already loaded (same content hash)",
+      "findings": [],
+      "rows_in": 0,
+      "rows_inserted": 0,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 0
+    },
+    {
+      "source_file": "orders_batch_003_missing_optional.parquet",
+      "outcome": "LOADED",
+      "batch_sha256": "8755d8c43fbe5b868cb6e28253ea3325cb17399e8ba460125cf50e6882f4d197",
+      "note": null,
+      "findings": [
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "currency",
+          "severity": "COMPATIBLE",
+          "detail": "'currency' absent; will be NULL",
+          "logical_type": null
+        },
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "coupon_code",
+          "severity": "COMPATIBLE",
+          "detail": "'coupon_code' absent; will be NULL",
+          "logical_type": null
+        }
+      ],
+      "rows_inserted": 19,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 1,
+      "rows_in": 20,
+      "timings_s": {
+        "read": 0.0014,
+        "validate": 0.0258,
+        "load": 0.0069
+      }
+    },
+    {
+      "source_file": "orders_batch_004_breaking_rename.parquet",
+      "outcome": "QUARANTINED",
+      "batch_sha256": "7c8c0bd82030a257cd03ee4c285de735d0080cbdfc32927dda220ecbdecda30d",
+      "note": "MISSING_REQUIRED_COLUMN(customer_id)",
+      "findings": [
+        {
+          "kind": "MISSING_REQUIRED_COLUMN",
+          "column": "customer_id",
+          "severity": "BREAKING",
+          "detail": "required column 'customer_id' absent",
+          "logical_type": null
+        },
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "coupon_code",
+          "severity": "COMPATIBLE",
+          "detail": "'coupon_code' absent; will be NULL",
+          "logical_type": null
+        },
+        {
+          "kind": "ADD_COLUMN",
+          "column": "cust_id",
+          "severity": "COMPATIBLE",
+          "detail": "new nullable column (string)",
+          "logical_type": "string"
+        }
+      ],
+      "rows_in": 0,
+      "rows_inserted": 0,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 0
+    },
+    {
+      "source_file": "orders_batch_005_breaking_type.parquet",
+      "outcome": "QUARANTINED",
+      "batch_sha256": "1db12107d7548ce4f2868327410956f9260dd98bcaf5ffe5b5eb706d74ecd557",
+      "note": "TYPE_MISMATCH(amount)",
+      "findings": [
+        {
+          "kind": "TYPE_MISMATCH",
+          "column": "amount",
+          "severity": "BREAKING",
+          "detail": "expected float, got string",
+          "logical_type": null
+        },
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "coupon_code",
+          "severity": "COMPATIBLE",
+          "detail": "'coupon_code' absent; will be NULL",
+          "logical_type": null
+        }
+      ],
+      "rows_in": 0,
+      "rows_inserted": 0,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 0
+    },
+    {
+      "source_file": "orders_batch_006_empty.parquet",
+      "outcome": "LOADED",
+      "batch_sha256": "0b75f3f4d0e5d3b28257608db52061a25fda2bf231dee268b6e0a5b37f29eefe",
+      "note": "empty batch",
+      "findings": [
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "currency",
+          "severity": "COMPATIBLE",
+          "detail": "'currency' absent; will be NULL",
+          "logical_type": null
+        },
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "coupon_code",
+          "severity": "COMPATIBLE",
+          "detail": "'coupon_code' absent; will be NULL",
+          "logical_type": null
+        }
+      ],
+      "rows_inserted": 0,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 0,
+      "rows_in": 0,
+      "timings_s": {
+        "read": 0.0007,
+        "validate": 0.0104,
+        "load": 0.0013
+      }
+    },
+    {
+      "source_file": "orders_batch_007_malformed.parquet",
+      "outcome": "QUARANTINED",
+      "batch_sha256": "46386658da4e1df79c5c4aad1e276be5fa90a2363626e5dcec7121a8fc5980f7",
+      "note": "UNREADABLE_FILE(*)",
+      "findings": [
+        {
+          "kind": "UNREADABLE_FILE",
+          "column": "*",
+          "severity": "BREAKING",
+          "detail": "not a Parquet file (bad magic bytes)",
+          "logical_type": null
+        }
+      ],
+      "rows_in": 0,
+      "rows_inserted": 0,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 0
+    },
+    {
+      "source_file": "orders_batch_008_breaking_name.parquet",
+      "outcome": "QUARANTINED",
+      "batch_sha256": "0bf1c25e14edaa5ad02a53c347fa2f61ea2f4630be162e67c52bdb5b0e96d96b",
+      "note": "INVALID_COLUMN_NAME(Discount%)",
+      "findings": [
+        {
+          "kind": "MISSING_OPTIONAL_COLUMN",
+          "column": "coupon_code",
+          "severity": "COMPATIBLE",
+          "detail": "'coupon_code' absent; will be NULL",
+          "logical_type": null
+        },
+        {
+          "kind": "INVALID_COLUMN_NAME",
+          "column": "Discount%",
+          "severity": "BREAKING",
+          "detail": "'Discount%' is not snake_case",
+          "logical_type": null
+        }
+      ],
+      "rows_in": 0,
+      "rows_inserted": 0,
+      "rows_updated": 0,
+      "rows_unchanged": 0,
+      "rows_stale": 0,
+      "rows_rejected": 0
+    }
+  ]
+}

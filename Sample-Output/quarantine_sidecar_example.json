@@ -1,0 +1,22 @@
+{
+  "source_file": "orders_batch_008_breaking_name.parquet",
+  "batch_sha256": "0bf1c25e14edaa5ad02a53c347fa2f61ea2f4630be162e67c52bdb5b0e96d96b",
+  "run_id": "sample-run-0001",
+  "quarantined_at": "2026-11-14T09:24:37.237544Z",
+  "findings": [
+    {
+      "kind": "MISSING_OPTIONAL_COLUMN",
+      "column": "coupon_code",
+      "severity": "COMPATIBLE",
+      "detail": "'coupon_code' absent; will be NULL",
+      "logical_type": null
+    },
+    {
+      "kind": "INVALID_COLUMN_NAME",
+      "column": "Discount%",
+      "severity": "BREAKING",
+      "detail": "'Discount%' is not snake_case",
+      "logical_type": null
+    }
+  ]
+}
